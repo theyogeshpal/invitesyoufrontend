@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Digital Invitation Card Online | Wedding &amp; Party E-Invites - Typwrite</title>
+    <meta name="description" content="Design and customize interactive digital invitation cards online. Add couple names, event dates, venues, music and RSVP. Instant preview &amp; download.">
+    <meta name="keywords" content="create digital invitation card online, wedding card maker, digital shadi card creator, interactive invitation builder">
+    <meta name="robots" content="index, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* ── PAGE LAYOUT ─────────────────────────────────── */
+        body { background: var(--bg-very-light); }
+
+        .creator-wrapper {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            min-height: calc(100vh - 72px);
+            margin-top: 72px;
+            gap: 0;
+        }
+
+        /* ── LEFT PANEL ──────────────────────────────────── */
+        .editor-panel {
+            background: #fff;
+            border-right: 1px solid var(--border);
+            padding: 28px 24px 40px;
+            overflow-y: auto;
+            position: sticky;
+            top: 72px;
+            height: calc(100vh - 72px);
+        }
+
+        .editor-panel h1,
+        .editor-panel h2 {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+            color: var(--primary);
+        }
+        .editor-panel > p {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        /* Template Switcher */
+        .template-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .tmpl-btn {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--text-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            transition: all 0.2s;
+        }
+        .tmpl-btn.active, .tmpl-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* Section Groups */
+        .editor-section {
+            margin-bottom: 24px;
+        }
+        .editor-section-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Form Fields */
+        .field-group {
+            margin-bottom: 14px;
+        }
+        .field-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-body);
+            margin-bottom: 5px;
+        }
+        .field-group input,
+        .field-group select,
+        .field-group textarea {
+            width: 100%;
+            padding: 9px 13px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-family: var(--font-sans);
+            font-size: 0.84rem;
+            color: var(--text-body);
+            background: var(--bg-very-light);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .field-group input:focus,
+        .field-group select:focus,
+        .field-group textarea:focus {
+            border-color: var(--primary);
+        }
+        .field-group textarea { resize: vertical; min-height: 60px; }
+
+        .color-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .color-swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2.5px solid transparent;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+        .color-swatch.active { border-color: var(--primary); transform: scale(1.2); }
+        .color-swatch:hover { transform: scale(1.15); }
+
+        .btn-action {
+            width: 100%;
+            padding: 13px;
+            border-radius: 12px;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+        }
+        .btn-download {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 30%, transparent);
+        }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 6px 20px color-mix(in srgb, var(--primary) 40%, transparent); }
+        .btn-share {
+            background: #25D366;
+            color: #fff;
+        }
+        .btn-share:hover { background: #1db954; transform: translateY(-2px); }
+        .btn-link {
+            background: var(--bg-very-light);
+            color: var(--primary);
+            border: 1.5px solid var(--border);
+        }
+        .btn-link:hover { background: var(--border); }
+
+        /* ── RIGHT PANEL – PREVIEW ───────────────────────── */
+        .preview-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 24px;
+            gap: 24px;
+            background: color-mix(in srgb, var(--bg-theme) 60%, white);
+        }
+
+        .preview-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        /* The actual card preview */
+        #card-preview {
+            width: 420px;
+            min-height: 580px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+
+        /* ── CARD TEMPLATE STYLES ────────────────────────── */
+
+        /* Template 1 – Royal Floral */
+        .card-t1 {
+            background: linear-gradient(160deg, #2d1b05 0%, #5c2d0a 50%, #2d1b05 100%);
+            color: #f5e6c8;
+        }
+        .card-t1 .card-bg-pattern {
+            position: absolute; inset: 0;
+            background-image:
+                radial-gradient(ellipse at 20% 20%, rgba(212,167,44,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(212,167,44,0.1) 0%, transparent 60%);
+        }
+        .card-t1 .card-corner {
+            position: absolute;
+            width: 110px; height: 110px;
+            border: 2px solid rgba(212,167,44,0.5);
+        }
+        .card-t1 .card-corner.tl { top: 16px; left: 16px; border-right: none; border-bottom: none; border-radius: 8px 0 0 0; }
+        .card-t1 .card-corner.tr { top: 16px; right: 16px; border-left: none; border-bottom: none; border-radius: 0 8px 0 0; }
+        .card-t1 .card-corner.bl { bottom: 16px; left: 16px; border-right: none; border-top: none; border-radius: 0 0 0 8px; }
+        .card-t1 .card-corner.br { bottom: 16px; right: 16px; border-left: none; border-top: none; border-radius: 0 0 8px 0; }
+        .card-t1 .card-divider { width: 180px; height: 1px; background: linear-gradient(90deg, transparent, #D4A72C, transparent); margin: 10px auto; }
+        .card-t1 .card-subtext { color: rgba(245,230,200,0.75); }
+        .card-t1 .card-event-badge {
+            background: rgba(212,167,44,0.25);
+            border: 1px solid rgba(212,167,44,0.5);
+            color: #D4A72C;
+        }
+        .card-t1 .card-detail-icon { color: #D4A72C; }
+
+        /* Template 2 – Elegant Blush */
+        .card-t2 {
+            background: linear-gradient(160deg, #fff5f5 0%, #fce8e8 50%, #fff5f5 100%);
+            color: #5a2d2d;
+        }
+        .card-t2 .card-bg-pattern {
+            position: absolute; inset: 0;
+            background-image: radial-gradient(ellipse at 50% 0%, rgba(220,120,120,0.08) 0%, transparent 60%);
+        }
+        .card-t2 .card-corner { border-color: rgba(180,80,80,0.3) !important; }
+        .card-t2 .card-divider { background: linear-gradient(90deg, transparent, #c47b7b, transparent); }
+        .card-t2 .card-subtext { color: rgba(90,45,45,0.6); }
+        .card-t2 .card-event-badge {
+            background: rgba(220,120,120,0.15);
+            border: 1px solid rgba(220,120,120,0.4);
+            color: #b35050;
+        }
+        .card-t2 .card-detail-icon { color: #c47b7b; }
+
+        /* Template 3 – Garden Green */
+        .card-t3 {
+            background: linear-gradient(160deg, #f0f7f0 0%, #d6edd6 50%, #f0f7f0 100%);
+            color: #1a3d1a;
+        }
+        .card-t3 .card-bg-pattern {
+            position: absolute; inset: 0;
+            background-image: radial-gradient(ellipse at 80% 20%, rgba(50,120,50,0.08) 0%, transparent 60%);
+        }
+        .card-t3 .card-corner { border-color: rgba(50,120,50,0.35) !important; }
+        .card-t3 .card-divider { background: linear-gradient(90deg, transparent, #4a8a4a, transparent); }
+        .card-t3 .card-subtext { color: rgba(26,61,26,0.6); }
+        .card-t3 .card-event-badge {
+            background: rgba(50,120,50,0.12);
+            border: 1px solid rgba(50,120,50,0.35);
+            color: #2d6e2d;
+        }
+        .card-t3 .card-detail-icon { color: #4a8a4a; }
+
+        /* Template 4 – Midnight Royal */
+        .card-t4 {
+            background: linear-gradient(160deg, #0f0c29 0%, #1a1a4e 50%, #0f0c29 100%);
+            color: #e8e0ff;
+        }
+        .card-t4 .card-bg-pattern {
+            position: absolute; inset: 0;
+            background-image:
+                radial-gradient(ellipse at 30% 30%, rgba(130,100,255,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(100,180,255,0.08) 0%, transparent 50%);
+        }
+        .card-t4 .card-corner { border-color: rgba(150,120,255,0.4) !important; }
+        .card-t4 .card-divider { background: linear-gradient(90deg, transparent, #9c7fff, transparent); }
+        .card-t4 .card-subtext { color: rgba(232,224,255,0.65); }
+        .card-t4 .card-event-badge {
+            background: rgba(130,100,255,0.2);
+            border: 1px solid rgba(130,100,255,0.4);
+            color: #b89fff;
+        }
+        .card-t4 .card-detail-icon { color: #9c7fff; }
+
+        /* ── CARD INNER CONTENT ──────────────────────────── */
+        .card-inner {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0;
+        }
+
+        .card-event-badge {
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 5px 16px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+            display: inline-block;
+        }
+
+        .card-invite-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.1rem;
+            line-height: 1.1;
+            margin-bottom: 6px;
+            opacity: 0.85;
+        }
+
+        .card-names {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 2px 0 6px;
+        }
+
+        .card-divider { margin: 10px auto; }
+
+        .card-subtext {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.0rem;
+            font-style: italic;
+        }
+
+        .card-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            margin-top: 22px;
+        }
+
+        .card-detail-box {
+            padding: 12px 10px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .card-detail-icon {
+            font-size: 0.85rem;
+            margin-bottom: 2px;
+        }
+        .card-detail-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            font-family: var(--font-sans);
+        }
+        .card-detail-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .card-footer-msg {
+            margin-top: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.88rem;
+            font-style: italic;
+            opacity: 0.7;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            line-height: 1.5;
+        }
+
+        /* ── TOAST ───────────────────────────────────────── */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: var(--font-sans);
+            z-index: 9999;
+            transition: transform 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* ── RANGE SLIDER ────────────────────────────────── */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 5px;
+            border-radius: 5px;
+            background: var(--border);
+            outline: none;
+            cursor: pointer;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        /* ── MOBILE ──────────────────────────────────────── */
+        @media (max-width: 860px) {
+            .creator-wrapper {
+                grid-template-columns: 1fr;
+                margin-top: 60px;
+            }
+            .editor-panel {
+                position: static;
+                height: auto;
+            }
+            .preview-panel { padding: 24px 16px; }
+            #card-preview { width: 100%; max-width: 380px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR (copied from site) -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" style="text-decoration:none;">
+                <i class="fas fa-layer-group logo-icon"></i>
+                <span>typwrite</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="templates.html">Templates</a>
+                <a href="how-it-works.html">How it Works</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="contact.html">Contact</a>
+                <a href="create.html" class="active">Create</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="icon-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="creator-wrapper">
+
+        <!-- ── LEFT: EDITOR ───────────────────────────────── -->
+        <aside class="editor-panel">
+            <h1 class="editor-title" style="margin:0 0 4px 0;"><i class="fas fa-magic" style="font-size:1rem;margin-right:6px;"></i> Create Digital Invitation Card</h1>
+            <p>Customize your card, then download or share instantly.</p>
+
+            <!-- Template Picker -->
+            <div class="editor-section">
+                <div class="editor-section-title">Choose Design</div>
+                <div class="template-tabs">
+                    <button class="tmpl-btn active" data-tmpl="t1">🏛 Royal Dark</button>
+                    <button class="tmpl-btn" data-tmpl="t2">🌸 Blush Pink</button>
+                    <button class="tmpl-btn" data-tmpl="t3">🌿 Garden</button>
+                    <button class="tmpl-btn" data-tmpl="t4">🌙 Midnight</button>
+                </div>
+            </div>
+
+            <!-- Event Type -->
+            <div class="editor-section">
+                <div class="editor-section-title">Event Details</div>
+                <div class="field-group">
+                    <label>Event Type</label>
+                    <select id="f-event-type">
+                        <option value="Wedding">💍 Wedding</option>
+                        <option value="Birthday">🎂 Birthday</option>
+                        <option value="Engagement">💑 Engagement</option>
+                        <option value="Baby Shower">👶 Baby Shower</option>
+                        <option value="Anniversary">🎉 Anniversary</option>
+                        <option value="Haldi">🌼 Haldi Ceremony</option>
+                        <option value="Mehndi">🎨 Mehndi Night</option>
+                        <option value="Reception">✨ Reception</option>
+                        <option value="Naming Ceremony">🍼 Naming Ceremony</option>
+                        <option value="Custom">📌 Custom Event</option>
+                    </select>
+                </div>
+                <div class="field-group" id="custom-event-group" style="display:none;">
+                    <label>Custom Event Name</label>
+                    <input type="text" id="f-custom-event" placeholder="e.g. Pooja, Kitty Party..." value="Special Celebration">
+                </div>
+            </div>
+
+            <!-- Names -->
+            <div class="editor-section">
+                <div class="editor-section-title">Names</div>
+                <div class="field-group">
+                    <label>Top Tagline ("You are invited to...")</label>
+                    <input type="text" id="f-tagline" placeholder="You're Invited" value="You're Invited to the">
+                </div>
+                <div class="field-group">
+                    <label id="name-label">Couple / Host Name(s)</label>
+                    <input type="text" id="f-names" placeholder="e.g. Rohan & Priya" value="Rohan & Priya">
+                </div>
+                <div class="field-group">
+                    <label>Sub Tagline / Quote</label>
+                    <input type="text" id="f-subtitle" placeholder="e.g. #TogetherForever" value="Together Forever">
+                </div>
+            </div>
+
+            <!-- Date & Time -->
+            <div class="editor-section">
+                <div class="editor-section-title">Date & Time</div>
+                <div class="field-group">
+                    <label>Date</label>
+                    <input type="date" id="f-date" value="2025-02-14">
+                </div>
+                <div class="field-group">
+                    <label>Time</label>
+                    <input type="time" id="f-time" value="18:30">
+                </div>
+            </div>
+
+            <!-- Venue -->
+            <div class="editor-section">
+                <div class="editor-section-title">Venue</div>
+                <div class="field-group">
+                    <label>Venue Name</label>
+                    <input type="text" id="f-venue-name" placeholder="e.g. The Grand Palace" value="The Grand Palace">
+                </div>
+                <div class="field-group">
+                    <label>Venue Address</label>
+                    <input type="text" id="f-venue-addr" placeholder="e.g. MG Road, Jaipur" value="MG Road, Jaipur, Rajasthan">
+                </div>
+            </div>
+
+            <!-- Footer Message -->
+            <div class="editor-section">
+                <div class="editor-section-title">Footer Message</div>
+                <div class="field-group">
+                    <textarea id="f-message" placeholder="e.g. With the blessings of our family...">With the blessings of our family, we joyfully invite you to celebrate this special day with us.</textarea>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="editor-section">
+                <div class="editor-section-title">Export & Share</div>
+                <button class="btn-action btn-download" id="btn-download">
+                    <i class="fas fa-download"></i> Download as Image
+                </button>
+                <button class="btn-action btn-share" id="btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                </button>
+                <button class="btn-action btn-link" id="btn-copy-link">
+                    <i class="fas fa-link"></i> Copy Shareable Link
+                </button>
+            </div>
+        </aside>
+
+        <!-- ── RIGHT: PREVIEW ─────────────────────────────── -->
+        <section class="preview-panel">
+            <div class="preview-label"><i class="fas fa-eye" style="margin-right:5px;"></i> Live Preview</div>
+
+            <div id="card-preview" class="card-t1">
+                <!-- BG Pattern -->
+                <div class="card-bg-pattern"></div>
+
+                <!-- Corner Decorations -->
+                <div class="card-corner tl"></div>
+                <div class="card-corner tr"></div>
+                <div class="card-corner bl"></div>
+                <div class="card-corner br"></div>
+
+                <!-- Card Content -->
+                <div class="card-inner">
+                    <span class="card-event-badge" id="cv-event-badge">WEDDING</span>
+
+                    <div class="card-invite-text" id="cv-tagline">You're Invited to the</div>
+
+                    <div class="card-names" id="cv-names">Rohan & Priya</div>
+
+                    <div class="card-divider" id="cv-divider"></div>
+
+                    <div class="card-subtext" id="cv-subtitle">Together Forever</div>
+
+                    <div class="card-details-grid">
+                        <div class="card-detail-box">
+                            <div class="card-detail-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="card-detail-label">Date</div>
+                            <div class="card-detail-value" id="cv-date">14 Feb, 2025</div>
+                        </div>
+                        <div class="card-detail-box">
+                            <div class="card-detail-icon"><i class="fas fa-clock"></i></div>
+                            <div class="card-detail-label">Time</div>
+                            <div class="card-detail-value" id="cv-time">6:30 PM</div>
+                        </div>
+                        <div class="card-detail-box" style="grid-column: 1/-1;">
+                            <div class="card-detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="card-detail-label">Venue</div>
+                            <div class="card-detail-value" id="cv-venue">The Grand Palace<br><span style="font-size:0.75rem; font-weight:400; opacity:0.75;" id="cv-addr">MG Road, Jaipur, Rajasthan</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer-msg" id="cv-message">
+                        With the blessings of our family, we joyfully invite you to celebrate this special day with us.
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size:0.75rem; color:var(--text-light); text-align:center; max-width:360px; line-height:1.6;">
+                <i class="fas fa-info-circle"></i>
+                Edit fields on the left — card updates live. Download as PNG image to print or share!
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">✅ Link copied to clipboard!</div>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+    // ── HELPERS ───────────────────────────────────────────────
+    function $(id) { return document.getElementById(id); }
+
+    function formatDate(val) {
+        if (!val) return '';
+        const d = new Date(val + 'T00:00:00');
+        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function formatTime(val) {
+        if (!val) return '';
+        const [h, m] = val.split(':').map(Number);
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        const hh = h % 12 || 12;
+        return `${hh}:${m.toString().padStart(2,'0')} ${ampm}`;
+    }
+
+    function showToast(msg) {
+        const t = $('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    // ── CURRENT TEMPLATE ─────────────────────────────────────
+    let currentTemplate = 't1';
+
+    // ── LIVE UPDATE ───────────────────────────────────────────
+    function updateCard() {
+        const eventType = $('f-event-type').value;
+        const customEvent = $('f-custom-event').value.trim();
+        const eventLabel = eventType === 'Custom' ? (customEvent || 'Special Event') : eventType;
+
+        $('cv-event-badge').textContent = eventLabel.toUpperCase();
+        $('cv-tagline').textContent = $('f-tagline').value || 'You\'re Invited';
+        $('cv-names').textContent = $('f-names').value || 'Your Names Here';
+        $('cv-subtitle').textContent = $('f-subtitle').value || '';
+        $('cv-date').textContent = formatDate($('f-date').value);
+        $('cv-time').textContent = formatTime($('f-time').value);
+        $('cv-venue').innerHTML =
+            ($('f-venue-name').value || 'Venue') +
+            '<br><span style="font-size:0.75rem;font-weight:400;opacity:0.75;" id="cv-addr">' +
+            ($('f-venue-addr').value || '') + '</span>';
+        $('cv-message').textContent = $('f-message').value || '';
+
+        // Event-specific label for name field
+        const nameLabel = {
+            Birthday: 'Birthday Person\'s Name',
+            'Baby Shower': 'Parents\' Names',
+            Anniversary: 'Couple\'s Names',
+            Custom: 'Host Name(s)',
+        }[eventType] || 'Couple\'s Names';
+        $('name-label').textContent = nameLabel;
+
+        // Show/hide custom event input
+        $('custom-event-group').style.display = eventType === 'Custom' ? 'block' : 'none';
+    }
+
+    // ── TEMPLATE SWITCHER ─────────────────────────────────────
+    document.querySelectorAll('.tmpl-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tmpl-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const tmpl = btn.dataset.tmpl;
+            const card = $('card-preview');
+            card.className = `card-${tmpl}`;
+            currentTemplate = tmpl;
+        });
+    });
+
+    // ── FIELD LISTENERS ───────────────────────────────────────
+    const fieldIds = [
+        'f-event-type','f-custom-event','f-tagline','f-names','f-subtitle',
+        'f-date','f-time','f-venue-name','f-venue-addr','f-message'
+    ];
+    fieldIds.forEach(id => {
+        $(id).addEventListener('input', updateCard);
+        $(id).addEventListener('change', updateCard);
+    });
+
+    // ── DOWNLOAD ──────────────────────────────────────────────
+    $('btn-download').addEventListener('click', async () => {
+        const btn = $('btn-download');
+        btn.textContent = '⏳ Generating...';
+        btn.disabled = true;
+
+        try {
+            const card = $('card-preview');
+            const canvas = await html2canvas(card, {
+                scale: 3,
+                useCORS: true,
+                backgroundColor: null,
+                logging: false
+            });
+
+            const link = document.createElement('a');
+            link.download = 'my-invitation.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast('🎉 Invitation downloaded!');
+        } catch(e) {
+            showToast('❌ Download failed. Try again.');
+        } finally {
+            btn.innerHTML = '<i class="fas fa-download"></i> Download as Image';
+            btn.disabled = false;
+        }
+    });
+
+    // ── WHATSAPP SHARE ────────────────────────────────────────
+    $('btn-whatsapp').addEventListener('click', () => {
+        const names = $('f-names').value || 'Us';
+        const event = $('f-event-type').value;
+        const date = formatDate($('f-date').value);
+        const time = formatTime($('f-time').value);
+        const venue = $('f-venue-name').value;
+        const addr = $('f-venue-addr').value;
+        // Build shareable view link to include in WhatsApp
+        const data = {
+            tmpl: currentTemplate, event: $('f-event-type').value,
+            custom: $('f-custom-event').value, tag: $('f-tagline').value,
+            names: $('f-names').value, sub: $('f-subtitle').value,
+            date: $('f-date').value, time: $('f-time').value,
+            vname: $('f-venue-name').value, vaddr: $('f-venue-addr').value,
+            msg: $('f-message').value,
+        };
+        const params = new URLSearchParams(data).toString();
+        const viewUrl = window.location.href.replace('create.html','view.html').split('?')[0] + '?' + params;
+        const msg = `✨ *You're Invited!*\n\n🎊 *${event}* of *${names}*\n📅 Date: ${date}\n⏰ Time: ${time}\n📍 Venue: ${venue}, ${addr}\n\n👉 *Open Your Invitation:*\n${viewUrl}\n\n_We would love your presence!_ 🙏`;
+        const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
+    });
+
+    // ── COPY SHAREABLE LINK ───────────────────────────────────
+    $('btn-copy-link').addEventListener('click', () => {
+        // Encode all card data into URL params
+        const data = {
+            tmpl: currentTemplate,
+            event: $('f-event-type').value,
+            custom: $('f-custom-event').value,
+            tag: $('f-tagline').value,
+            names: $('f-names').value,
+            sub: $('f-subtitle').value,
+            date: $('f-date').value,
+            time: $('f-time').value,
+            vname: $('f-venue-name').value,
+            vaddr: $('f-venue-addr').value,
+            msg: $('f-message').value,
+        };
+        const params = new URLSearchParams(data).toString();
+        // Link points to view.html — the full-screen invitation experience
+        const viewUrl = window.location.href.replace('create.html', 'view.html');
+        const shareUrl = viewUrl.split('?')[0] + '?' + params;
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            showToast('🔗 Link copied! Share it with your guests.');
+        }).catch(() => {
+            // Fallback
+            prompt('Copy this link:', shareUrl);
+        });
+    });
+
+    // ── LOAD FROM URL PARAMS (Shareable Link) ─────────────────
+    function loadFromParams() {
+        const p = new URLSearchParams(window.location.search);
+        if (!p.has('names')) return; // No params, use defaults
+
+        if (p.get('tmpl')) {
+            const tmpl = p.get('tmpl');
+            currentTemplate = tmpl;
+            $('card-preview').className = `card-${tmpl}`;
+            document.querySelectorAll('.tmpl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.tmpl === tmpl);
+            });
+        }
+
+        const map = {
+            'f-event-type': 'event',
+            'f-custom-event': 'custom',
+            'f-tagline': 'tag',
+            'f-names': 'names',
+            'f-subtitle': 'sub',
+            'f-date': 'date',
+            'f-time': 'time',
+            'f-venue-name': 'vname',
+            'f-venue-addr': 'vaddr',
+            'f-message': 'msg',
+        };
+        Object.entries(map).forEach(([fieldId, paramKey]) => {
+            const val = p.get(paramKey);
+            if (val) $(fieldId).value = val;
+        });
+
+        updateCard();
+    }
+
+    // ── INIT ──────────────────────────────────────────────────
+    updateCard();
+    loadFromParams();
+    </script>
+</body>
+</html>
