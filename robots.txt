@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://typwrite.in/sitemap.xml
+Sitemap: https://invitesyou.in/sitemap.xml

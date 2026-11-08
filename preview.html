@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Invitation Card Preview & Demo - Typwrite</title>
+    <title>Digital Invitation Card Preview & Demo - Invites You</title>
     <meta name="description" content="Live mobile interactive preview of custom digital invitation card with 3D envelope opening, music, and WhatsApp RSVP.">
     <meta name="robots" content="noindex, follow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -187,7 +187,7 @@
 
                 const orderBtn = document.getElementById('orderBtn');
                 const phone = (window.__ENV__ && window.__ENV__.WHATSAPP_NUMBER) || '917817095043';
-                orderBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(`Hi Typwrite! I want to order the "${card.title}" digital invitation card (Price: ₹${card.price}). Please guide me!`)}`;
+                orderBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(`Hi Invites You! I want to order the "${card.title}" digital invitation card (Price: ₹${card.price}). Please guide me!`)}`;
             } catch (e) {
                 console.error(e);
             }

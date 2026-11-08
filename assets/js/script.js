@@ -133,7 +133,7 @@ const FALLBACK_CARDS = [
 
 function getCachedTemplates() {
     try {
-        const raw = localStorage.getItem('typwrite_cached_templates');
+        const raw = localStorage.getItem('invitesyou_cached_templates');
         if (raw) {
             const parsed = JSON.parse(raw);
             if (Array.isArray(parsed) && parsed.length > 0) return parsed.map(sanitizeCard);
@@ -168,7 +168,7 @@ async function fetchTemplatesFast() {
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
             const cleanData = data.map(sanitizeCard);
-            localStorage.setItem('typwrite_cached_templates', JSON.stringify(cleanData));
+            localStorage.setItem('invitesyou_cached_templates', JSON.stringify(cleanData));
             console.log(`[Backend Sync] Loaded ${cleanData.length} templates from ${API_BASE}`);
             return cleanData;
         }
@@ -200,7 +200,7 @@ function getWhatsAppOrderUrl(t, demoUrl) {
         ? demoUrl
         : `${window.location.origin}/${demoUrl.replace(/^\/?/, '')}`;
 
-    const defaultMsg = `Hi Typwrite! I want to order the "${t.title}" digital invitation card.\nCard Demo: ${fullDemoUrl}\nPrice: ₹${t.price}\nPlease share next steps!`;
+    const defaultMsg = `Hi Invites You! I want to order the "${t.title}" digital invitation card.\nCard Demo: ${fullDemoUrl}\nPrice: ₹${t.price}\nPlease share next steps!`;
     const baseMsg = t.whatsappMsg ? `${t.whatsappMsg}\nDemo: ${fullDemoUrl}` : defaultMsg;
     const phone = (window.__ENV__ && window.__ENV__.WHATSAPP_NUMBER) || '917817095043';
     return `https://wa.me/${phone}?text=${encodeURIComponent(baseMsg)}`;
