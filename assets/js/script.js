@@ -1,4 +1,8 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = (window.__ENV__ && window.__ENV__.API_URL)
+    ? window.__ENV__.API_URL
+    : ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://localhost:5000/api'
+        : `${window.location.origin}/api`);
 
 // ─── THEME ROTATION (Purple Modern Palette) ───────────────
 const themes = [
@@ -181,7 +185,8 @@ function getWhatsAppOrderUrl(t, demoUrl) {
 
     const defaultMsg = `Hi Typwrite! I want to order the "${t.title}" digital invitation card.\nCard Demo: ${fullDemoUrl}\nPrice: ₹${t.price}\nPlease share next steps!`;
     const baseMsg = t.whatsappMsg ? `${t.whatsappMsg}\nDemo: ${fullDemoUrl}` : defaultMsg;
-    return `https://wa.me/917817095043?text=${encodeURIComponent(baseMsg)}`;
+    const phone = (window.__ENV__ && window.__ENV__.WHATSAPP_NUMBER) || '917817095043';
+    return `https://wa.me/${phone}?text=${encodeURIComponent(baseMsg)}`;
 }
 
 function buildTemplateCard(t) {

@@ -152,8 +152,9 @@
         <button class="music-btn" onclick="toggleMusic()"><i class="fas fa-music" id="musicIcon"></i></button>
     </div>
 
+    <script src="assets/js/env.js"></script>
     <script>
-        const API_BASE = 'http://localhost:5000/api';
+        const API_BASE = (window.__ENV__ && window.__ENV__.API_URL) || 'http://localhost:5000/api';
         const params = new URLSearchParams(window.location.search);
         const cardId = params.get('id');
 
@@ -185,7 +186,8 @@
                 openFullDemoBtn.href = demoUrl;
 
                 const orderBtn = document.getElementById('orderBtn');
-                orderBtn.href = `https://wa.me/917817095043?text=${encodeURIComponent(`Hi Typwrite! I want to order the "${card.title}" digital invitation card (Price: ₹${card.price}). Please guide me!`)}`;
+                const phone = (window.__ENV__ && window.__ENV__.WHATSAPP_NUMBER) || '917817095043';
+                orderBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(`Hi Typwrite! I want to order the "${card.title}" digital invitation card (Price: ₹${card.price}). Please guide me!`)}`;
             } catch (e) {
                 console.error(e);
             }

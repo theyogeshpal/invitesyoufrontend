@@ -703,6 +703,7 @@
     </div>
 </div>
 
+<script src="assets/js/env.js"></script>
 <script>
 // ═══════════════════════════════════════════════════════
 // DATA
@@ -1052,10 +1053,13 @@ async function initInvitation() {
         }
     }
 
+    const API_BASE = (window.__ENV__ && window.__ENV__.API_URL) || 'http://localhost:5000/api';
+    const waPhone = (window.__ENV__ && window.__ENV__.WHATSAPP_NUMBER) || '917817095043';
+
     // Check slug from backend
     if (p.get('slug')) {
         try {
-            const res = await fetch(`http://localhost:5000/api/invitations/slug/${encodeURIComponent(p.get('slug'))}`);
+            const res = await fetch(`${API_BASE}/invitations/slug/${encodeURIComponent(p.get('slug'))}`);
             if (res.ok) {
                 const inv = await res.json();
                 D.names = inv.names || D.names;
@@ -1073,7 +1077,7 @@ async function initInvitation() {
     if (p.get('id') || p.get('templateId')) {
         try {
             const tid = p.get('id') || p.get('templateId');
-            const res = await fetch(`http://localhost:5000/api/templates/${encodeURIComponent(tid)}`);
+            const res = await fetch(`${API_BASE}/templates/${encodeURIComponent(tid)}`);
             if (res.ok) {
                 const tmpl = await res.json();
                 D.event = tmpl.category || D.event;
@@ -1099,7 +1103,7 @@ async function initInvitation() {
 
     const orderBtn = document.getElementById('demo-order-btn');
     if (orderBtn) {
-        orderBtn.href = `https://wa.me/917817095043?text=${encodeURIComponent(`Hi Typwrite! I really love this digital card demo ("${D.names}"). I want to order this digital card.`)}`;
+        orderBtn.href = `https://wa.me/${waPhone}?text=${encodeURIComponent(`Hi Typwrite! I really love this digital card demo ("${D.names}"). I want to order this digital card.`)}`;
     }
 }
 initInvitation();
