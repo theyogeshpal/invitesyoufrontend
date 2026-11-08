@@ -55,7 +55,7 @@ const FALLBACK_CARDS = [
         discountedPrice: 4999,
         demoUrl: 'view.html?tmpl=t1&event=Wedding&names=Kabir+%26+Ananya&date=2026-12-18&time=19:00&vname=The+Leela+Palace&vaddr=Udaipur,+Rajasthan&sub=Royal+Heritage+Celebration',
         imageBack: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=380&q=75',
-        imageFront: 'https://images.unsplash.com/photo-1543883665-27a36c646b5a?auto=format&fit=crop&w=380&q=75',
+        imageFront: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=380&q=75',
         features: ['Interactive 3D Envelope', 'Background Music', 'RSVP via WhatsApp', 'Google Maps Navigation'],
         whatsappMsg: 'Hi! I want to order the "Divine Temple Cinematic Card" digital invitation.'
     },
@@ -110,7 +110,7 @@ const FALLBACK_CARDS = [
         price: 1999,
         discountedPrice: 2499,
         demoUrl: 'view.html?tmpl=t4&event=Birthday&names=Aarav%27s+5th+Birthday&date=2026-10-15&time=17:00&vname=Funky+Monkey+Playzone&vaddr=Bandra+West,+Mumbai&sub=Join+us+for+Fun,+Games+%26+Cake!',
-        imageBack: 'https://images.unsplash.com/photo-1530103862676-de8892bc952f?auto=format&fit=crop&w=380&q=75',
+        imageBack: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=380&q=75',
         imageFront: 'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?auto=format&fit=crop&w=380&q=75',
         features: ['Celebration Chimes & Music', 'Party Confetti Effect', 'Live Countdown Timer', 'Venue Map'],
         whatsappMsg: 'Hi! I want to order the "Magical Kids Birthday Bash" digital invitation.'
@@ -228,10 +228,10 @@ function buildTemplateCard(t) {
                 ${t.badge ? `<span class="tc-badge-badge">${t.badge}</span>` : ''}
                 <div class="tc-phones">
                     <div class="tc-phone back">
-                        <img src="${t.imageBack || t.imageFront}" alt="${t.title}" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=350&q=70'">
+                        <img src="${t.imageBack || t.imageFront}" alt="${t.title}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&amp;fit=crop&amp;w=350&amp;q=70';">
                     </div>
                     <div class="tc-phone front">
-                        <img src="${t.imageFront || t.imageBack}" alt="${t.title}" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1543883665-27a36c646b5a?auto=format&fit=crop&w=350&q=70'">
+                        <img src="${t.imageFront || t.imageBack}" alt="${t.title}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&amp;fit=crop&amp;w=350&amp;q=70';">
                     </div>
                 </div>
             </div>
