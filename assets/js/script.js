@@ -2,7 +2,7 @@ const API_BASE = (window.__ENV__ && window.__ENV__.API_URL)
     ? window.__ENV__.API_URL
     : ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
         ? 'http://localhost:5000/api'
-        : `${window.location.origin}/api`);
+        : 'https://invitesyoubackend.onrender.com/api');
 
 // ─── THEME ROTATION (Purple Modern Palette) ───────────────
 const themes = [
@@ -136,27 +136,44 @@ function getCachedTemplates() {
         const raw = localStorage.getItem('typwrite_cached_templates');
         if (raw) {
             const parsed = JSON.parse(raw);
-            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed.map(sanitizeCard);
         }
     } catch (e) {}
     return FALLBACK_CARDS;
 }
 
-// Fast fetch with AbortController timeout (so network never hangs)
+function sanitizeCard(t) {
+    if (!t) return t;
+    const c = Object.assign({}, t);
+    if (c.imageFront && c.imageFront.includes('photo-1543883665-27a36c646b5a')) {
+        c.imageFront = 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80';
+    }
+    if (c.imageBack && c.imageBack.includes('photo-1530103862676-de8892bc952f')) {
+        c.imageBack = 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=600&q=80';
+    }
+    return c;
+}
+
+// Fast fetch with AbortController timeout (gives hosted server time to wake up)
 async function fetchTemplatesFast() {
     try {
         const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 2500); // 2.5s max
+        const timer = setTimeout(() => controller.abort(), 12000); // 12s for serverless/cold-start
         const res = await fetch(`${API_BASE}/templates`, { signal: controller.signal });
         clearTimeout(timer);
-        if (!res.ok) return null;
+        if (!res.ok) {
+            console.warn(`[Backend Sync] ${API_BASE}/templates returned HTTP ${res.status}`);
+            return null;
+        }
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
-            localStorage.setItem('typwrite_cached_templates', JSON.stringify(data));
-            return data;
+            const cleanData = data.map(sanitizeCard);
+            localStorage.setItem('typwrite_cached_templates', JSON.stringify(cleanData));
+            console.log(`[Backend Sync] Loaded ${cleanData.length} templates from ${API_BASE}`);
+            return cleanData;
         }
     } catch (e) {
-        // Silently use cached/fallback data
+        console.warn(`[Backend Sync] Fetch error from ${API_BASE}:`, e.message);
     }
     return null;
 }

@@ -3,14 +3,15 @@
  * Loads environment variables and provides global access
  */
 (function() {
-    // Default / Local fallback environment variables
+    // Default environment variables: If localhost use localhost:5000, else use live Render backend
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     const DEFAULT_ENV = {
-        API_URL: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        API_URL: isLocal
             ? 'http://localhost:5000/api'
-            : `${window.location.origin}/api`,
+            : 'https://invitesyoubackend.onrender.com/api',
         WHATSAPP_NUMBER: '917817095043',
         WHATSAPP_DISPLAY: '+91 7817095043',
-        SITE_URL: window.location.origin || 'https://typwrite.in',
+        SITE_URL: window.location.origin || 'https://invitesyoufrontend.vercel.app',
         IMAGEKIT_URL: 'https://ik.imagekit.io/typ1309'
     };
 
